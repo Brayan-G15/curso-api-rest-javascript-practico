@@ -1,3 +1,13 @@
+// const api = axios.create({
+//     baseURL: "https://api.themoviedb.org/3/",
+//     headers: {
+//         "Content-Type": "application/json;charset=utf-8",
+//     },
+//     params: {
+//         "apy_key": API_KEY,
+//     },
+// });
+
 //Function preview de tendecnia de peliculas
 async function getTrendingMoviesPreview() {
     const res = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`);
@@ -6,7 +16,7 @@ async function getTrendingMoviesPreview() {
     const movies = data.results; // Arroja un array
     //Manipulacion del DOM
     movies.forEach(movie => {
-        const trendingPreviewMoviesContainer = document.querySelector("#trendingPreview .trendingPreview-movieList");//Guarda la etiqueta del HTML en una constante
+        const trendingMoviesPreviewList = document.querySelector("#trendingPreview .trendingPreview-movieList");//Guarda la etiqueta del HTML en una constante
 
         const movieContainer = document.createElement("div"); //Crea una nueva etiqueta div en el HTML 
         movieContainer.classList.add("movie-container"); // Mete la eqitueta creada en dentro de la etiqueta que se pasa en el id parentesis
@@ -18,22 +28,18 @@ async function getTrendingMoviesPreview() {
     
         //Metemos las etiquetas dentro de otras etiquetas para dar la estructura qu trae el HTML
         movieContainer.appendChild(movieImg);
-        trendingPreviewMoviesContainer.appendChild(movieContainer);
-
-
-    console.log(movies);
+        trendingMoviesPreviewList.appendChild(movieContainer);
     });
 }
 
-
+//Funcion lista de generos 
 async function getGenresMoviesPreview() {
     const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
     const data = await res.json();
-
     const categories = data.genres; // Arroja un array
     //Manipulacion del DOM
     categories.forEach(category => {
-        const previewCategoriesContainer = document.querySelector("#categoriesPreview .categoriesPreview-list");//Guarda la etiqueta del HTML en una constante
+        const categoriesPreviewList = document.querySelector("#categoriesPreview .categoriesPreview-list");//Guarda la etiqueta del HTML en una constante
 
         const categoryContainer = document.createElement("div"); //Crea una nueva etiqueta div en el HTML 
         categoryContainer.classList.add("category-container"); // Mete la eqitueta creada en dentro de la etiqueta que se pasa en el id parentesis
@@ -47,7 +53,7 @@ async function getGenresMoviesPreview() {
         //Metemos las etiquetas dentro de otras etiquetas para dar la estructura qu trae el HTML
         categoryTitle.appendChild(categoryTitleText);
         categoryContainer.appendChild(categoryTitle);
-        previewCategoriesContainer.appendChild(categoryContainer);
+        categoriesPreviewList.appendChild(categoryContainer);
     });
 }
 

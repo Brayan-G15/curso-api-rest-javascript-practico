@@ -14,9 +14,12 @@ async function getTrendingMoviesPreview() {
     const data = await res.json();
 
     const movies = data.results; // Arroja un array
+
+    trendingMoviesPreviewList.innerHTML = "";
+
     //Manipulacion del DOM
     movies.forEach(movie => {
-        const trendingMoviesPreviewList = document.querySelector("#trendingPreview .trendingPreview-movieList");//Guarda la etiqueta del HTML en una constante
+        //const trendingMoviesPreviewList = document.querySelector("#trendingPreview .trendingPreview-movieList");//Guarda la etiqueta del HTML en una constante
 
         const movieContainer = document.createElement("div"); //Crea una nueva etiqueta div en el HTML 
         movieContainer.classList.add("movie-container"); // Mete la eqitueta creada en dentro de la etiqueta que se pasa en el id parentesis
@@ -37,9 +40,12 @@ async function getGenresMoviesPreview() {
     const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
     const data = await res.json();
     const categories = data.genres; // Arroja un array
+
+    categoriesPreviewList.innerHTML = "";
+
     //Manipulacion del DOM
     categories.forEach(category => {
-        const categoriesPreviewList = document.querySelector("#categoriesPreview .categoriesPreview-list");//Guarda la etiqueta del HTML en una constante
+        //const categoriesPreviewList = document.querySelector("#categoriesPreview .categoriesPreview-list");//Guarda la etiqueta del HTML en una constante
 
         const categoryContainer = document.createElement("div"); //Crea una nueva etiqueta div en el HTML 
         categoryContainer.classList.add("category-container"); // Mete la eqitueta creada en dentro de la etiqueta que se pasa en el id parentesis

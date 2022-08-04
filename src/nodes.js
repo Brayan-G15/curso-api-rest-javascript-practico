@@ -1,3 +1,12 @@
+//Se puede omitir los querySelector de esta forma 
+// const $ = (id) => document.querySelector(id);
+// const headerSection = $('#header');
+// const trendingPreviewSection = $('#trendingPreview');
+// const categoriesPreviewSection = $('#categoriesPreview');
+// const genericSection = $('#genericList');
+// const movieDetailSection = $('#movieDetail');
+
+
 // Sections
 const headerSection = document.querySelector('#header');
 const trendingPreviewSection = document.querySelector('#trendingPreview');

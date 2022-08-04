@@ -1,12 +1,12 @@
 searchFormBtn.addEventListener('click', () => {
     location.hash = '#search=';
   });
-  
-  trendingBtn.addEventListener('click', () => {
+
+trendingBtn.addEventListener('click', () => {
     location.hash = '#trends';
   });
   
-  arrowBtn.addEventListener('click', () => {
+arrowBtn.addEventListener('click', () => {
     location.hash = '#home';
   });
 
@@ -15,18 +15,24 @@ window.addEventListener('hashchange', navigator, false);
 
 function navigator() {
     console.log({ location });
+    //Con operadores ternarios evitamos escribir tantos else if
+    location.hash.startsWith('#trends')    ? trendsPage()       :
+    location.hash.startsWith('#search=')   ? searchPage()       :
+    location.hash.startsWith('#movie=')    ? movieDetailsPage() :
+    location.hash.startsWith('#category=') ? categoriesPage()   :
+    homePage()
     
-    if (location.hash.startsWith('#trends')) {
-      trendsPage();
-    } else if (location.hash.startsWith('#search=')) {
-      searchPage();
-    } else if (location.hash.startsWith('#movie=')) {
-      movieDetailsPage();
-    } else if (location.hash.startsWith('#category=')) {
-      categoriesPage();
-    } else {
-      homePage();
-    }
+    // if (location.hash.startsWith('#trends')) {
+    //   trendsPage();
+    // } else if (location.hash.startsWith('#search=')) {
+    //   searchPage();
+    // } else if (location.hash.startsWith('#movie=')) {
+    //   movieDetailsPage();
+    // } else if (location.hash.startsWith('#category=')) {
+    //   categoriesPage();
+    // } else {
+    //   homePage();
+    // }
   }
 
   function homePage() {

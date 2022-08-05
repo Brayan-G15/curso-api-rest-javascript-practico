@@ -21,6 +21,10 @@ function navigator() {
     location.hash.startsWith('#movie=')    ? movieDetailsPage() :
     location.hash.startsWith('#category=') ? categoriesPage()   :
     homePage()
+
+    // Al abiri un genero nos abre arriba
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0; 
     
     // if (location.hash.startsWith('#trends')) {
     //   trendsPage();
@@ -70,6 +74,13 @@ function navigator() {
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
+
+    
+    const [_, categorydata] = location.hash.split("=");//["#category", "id-name"]
+    const [categoryId, categoryName] = categorydata.split("-"); //["id", "name"]
+
+    headerCategoryTitle.innerHTML = decodeURIComponent(categoryName); // Pone el nombre del genero en la pantalla 
+    getMoviesByCategory(categoryId); // Manda el id del genero para abrirlo en pantalla
   }
   
   function movieDetailsPage() {

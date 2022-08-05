@@ -145,5 +145,13 @@ async function  getMoviesByCategory(id){
     // });
 }
 
+async function  getMoviesBySearch(query){
+    const res = await fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`);
+    const data = await res.json();
+
+    const movies = data.results; // Arroja un array
+
+    createMovies(movies, genericSection);
+}
 getTrendingMoviesPreview();
 getGenresMoviesPreview();

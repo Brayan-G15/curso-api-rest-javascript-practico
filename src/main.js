@@ -16,6 +16,9 @@ function createMovies(movies, container){
 
         const movieContainer = document.createElement("div"); //Crea una nueva etiqueta div en el HTML 
         movieContainer.classList.add("movie-container"); // Mete la eqitueta creada en dentro de la etiqueta que se pasa en el id parentesis
+        movieContainer.addEventListener("click", () => {
+            location.hash = "#movie=" + movie.id;
+        });
 
         const movieImg = document.createElement("img"); //Crea una nueva etiqueta img en el HTML
         movieImg.classList.add("movie-img"); // Mete la etiqueta creada dentro de la etiqueta que se pasa en el id parentesis
@@ -153,5 +156,47 @@ async function  getMoviesBySearch(query){
 
     createMovies(movies, genericSection);
 }
-getTrendingMoviesPreview();
-getGenresMoviesPreview();
+
+async function getTrendingMovies() {
+    const res = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`);
+    const data = await res.json();
+
+    const movies = data.results; // Arroja un array
+
+    createMovies(movies, genericSection);
+}
+
+async function getMovieById(id){
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`);
+    const data = await res.json();
+
+    const movie = data;
+    const movieImgUrl = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+    console.log("imagen");
+    console.log(movieImgUrl)
+    headerSection.style.background = `
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.35) 19.27%,
+        rgba(0, 0, 0, 0) 29.17%
+      ),
+      url(${movieImgUrl})
+    `;
+    
+    movieDetailTitle.textContent = movie.title;
+    movieDetailDescription.textContent = movie.overview;
+    movieDetailScore.textContent = movie.vote_average;
+  
+    createCategories(movie.genres, movieDetailCategoriesList);
+
+    getRelatedMoviesId(id);
+}
+
+async function getRelatedMoviesId(id){
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}`);
+    const data = await res.json();
+
+    const movies = data.results;
+
+    createMovies(movies, relatedMoviesContainer);
+}
